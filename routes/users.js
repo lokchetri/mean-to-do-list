@@ -24,9 +24,20 @@ router.get('/user/:id', function(req, res, next){
 });
 
 // Get Single User By Username
-router.get('/user/:username', function(req, res, next){
+router.get('/user/name/:username', function(req, res, next){
     console.log("Get User By Username : ", req.params.username);
     db.users.findOne({username: req.params.username}, function(err, user){
+        if(err){
+            res.send(err);
+        }
+        res.json(user);
+    });
+});
+
+// Get Single User By Username
+router.post('/user/authenticate', function(req, res, next){
+    console.log("Get User By Username : ", req.params.username);
+    db.users.findOne({username: req.params.username, password: req.params.password}, function(err, user){
         if(err){
             res.send(err);
         }

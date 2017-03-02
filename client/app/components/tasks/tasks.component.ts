@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {TaskService} from '../../services/task.service';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import {TaskService, UserService} from '../../services/index';
 import {Task} from '../../models/Task';
 
 @Component({
@@ -8,15 +9,20 @@ import {Task} from '../../models/Task';
   templateUrl: 'tasks.component.html'
 })
 
-export class TasksComponent { 
+export class TasksComponent implements OnInit{ 
     tasks: Task[];
     title: string;
     _id: string;
     isDone: boolean;
     showUpdateBtn = false;
 
-    constructor(private taskService:TaskService){
-        //Get All Tasks
+
+    ngOnInit() {    
+
+    }
+    constructor(private taskService:TaskService, 
+    private userService:UserService){
+        // Get All Tasks
         this.taskService.getTasks()
             .subscribe(tasks => {
                 this.tasks = tasks;

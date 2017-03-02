@@ -9,18 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var task_service_1 = require('../../services/task.service');
+var index_1 = require('../../services/index');
 var TasksComponent = (function () {
-    function TasksComponent(taskService) {
+    function TasksComponent(taskService, userService) {
         var _this = this;
         this.taskService = taskService;
+        this.userService = userService;
         this.showUpdateBtn = false;
-        //Get All Tasks
+        // Get All Tasks
         this.taskService.getTasks()
             .subscribe(function (tasks) {
             _this.tasks = tasks;
         });
     }
+    TasksComponent.prototype.ngOnInit = function () {
+    };
     TasksComponent.prototype.addTask = function (event) {
         var _this = this;
         event.preventDefault();
@@ -101,7 +104,7 @@ var TasksComponent = (function () {
             selector: 'tasks',
             templateUrl: 'tasks.component.html'
         }), 
-        __metadata('design:paramtypes', [task_service_1.TaskService])
+        __metadata('design:paramtypes', [index_1.TaskService, index_1.UserService])
     ], TasksComponent);
     return TasksComponent;
 }());

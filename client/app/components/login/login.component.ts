@@ -1,43 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { UserService, AlertService } from '../../services/index';
+import { AlertService, AuthenticationService } from '../../services/index';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'login.component.html'
 })
- 
+
 export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
- 
+    errorMsg : string
     constructor(
-        private userService: UserService,
+        private route: ActivatedRoute,
         private router: Router,
-        ) { }
- 
+        private authenticationService: AuthenticationService,
+        private alertService: AlertService) { }
+
     ngOnInit() {
         // reset login status
-        //this.authenticationService.logout();
- 
+        this.authenticationService.logout();
+
         // get return url from route parameters or default to '/'
-        //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
- 
+
     login() {
         this.loading = true;
-        this.userService.getByUsername(this.model.username)
+        this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
-                    console.log("Login Response -",data);
-                    //compare password and redirect
-                    //@Todo
-                    //this.router.navigate([this.returnUrl]);
+                    this.loading = false;
+                    console.log("Login Successful!");
+                    this.router.navigate(['/home']);
                 },
                 error => {
-                    //this.alertService.error(error._body);
+                    this.errorMsg = "Invalid username or password!";
+                    this.alertService.error(error);
                     this.loading = false;
                 });
     }

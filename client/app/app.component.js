@@ -9,19 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var task_service_1 = require('./services/task.service');
+var router_1 = require('@angular/router');
+var index_1 = require('./services/index');
 var alert_component_1 = require('./directives/alert.component');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(userService, router) {
+        this.userService = userService;
+        this.router = router;
+        this.auth = false;
     }
+    AppComponent.prototype.ngOnInit = function () {
+    };
     AppComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'my-app',
             templateUrl: 'app.component.html',
-            providers: [task_service_1.TaskService, alert_component_1.AlertComponent]
+            providers: [index_1.TaskService, alert_component_1.AlertComponent, index_1.UserService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [index_1.UserService, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());

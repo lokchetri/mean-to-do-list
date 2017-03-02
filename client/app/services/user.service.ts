@@ -20,7 +20,7 @@ export class UserService {
             .map(res => res.json());
     }
     getByUsername(username){
-        return this.http.get('/user/user/'+username)
+        return this.http.get('/user/user/name/'+username)
             .map(res => res.json());
     }
     
@@ -41,7 +41,15 @@ export class UserService {
             .map(res => res.json());
     }
     
- 
+    authenticateUser(){
+        if(!localStorage.hasOwnProperty('currentUser') || (localStorage.getItem('currentUser'))=='undefined'){
+             console.log("authenticateUser - localStorage currentUser -", localStorage.getItem('currentUser'));
+            return false;
+        }else{
+            console.log("localStorage currentUser -", localStorage.getItem('currentUser'));
+        }
+    }
+
     // private helper methods
  
     private jwt() {

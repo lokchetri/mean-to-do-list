@@ -14,7 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
-  imports: [ BrowserModule, HttpModule, FormsModule, routing ],
+  imports: [BrowserModule, HttpModule, FormsModule, routing],
   declarations: [AppComponent, TasksComponent, LoginComponent, RegisterComponent],
   providers: [AuthGuard, AlertService, AuthenticationService, UserService],
   bootstrap: [AppComponent]

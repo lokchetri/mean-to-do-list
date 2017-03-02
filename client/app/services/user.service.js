@@ -25,7 +25,7 @@ var UserService = (function () {
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.getByUsername = function (username) {
-        return this.http.get('/user/user/' + username)
+        return this.http.get('/user/user/name/' + username)
             .map(function (res) { return res.json(); });
     };
     UserService.prototype.create = function (user) {
@@ -43,6 +43,15 @@ var UserService = (function () {
     UserService.prototype.delete = function (id) {
         return this.http.delete('/user/user/' + id)
             .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.authenticateUser = function () {
+        if (!localStorage.hasOwnProperty('currentUser') || (localStorage.getItem('currentUser')) == 'undefined') {
+            console.log("authenticateUser - localStorage currentUser -", localStorage.getItem('currentUser'));
+            return false;
+        }
+        else {
+            console.log("localStorage currentUser -", localStorage.getItem('currentUser'));
+        }
     };
     // private helper methods
     UserService.prototype.jwt = function () {
