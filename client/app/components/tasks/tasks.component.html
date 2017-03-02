@@ -1,0 +1,35 @@
+<div class="col-md-12">
+    <form class="well">
+        <div class="form-group">
+            <input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Add Task...">    
+        </div> 
+        <div class="form-group">
+                <input type="button" *ngIf="!showUpdateBtn" (click)="addTask($event)" value="Add" class="btn btn-info">
+        </div>
+        <div class="form-group">
+                <input type="button" *ngIf="showUpdateBtn" (click)="updateTask()" value="Update" class="btn btn-info">
+        </div> 
+    </form>
+</div>
+
+<div class="col-md-12">
+    <div class="task-list-wrapper">
+        <div class="col-md-12 task-list" *ngFor="let task of tasks">
+            <div class="col-md-1">
+                <input type="checkbox" [checked]="task.isDone" (click)="updateStatus(task)">
+            </div>
+            <div class="col-md-5">
+                {{task.title}}    
+            </div>
+            <div class="col-md-2">
+                <span *ngIf="task.isDone">Completed</span> 
+                <span *ngIf="!task.isDone">Pending</span>   
+            </div> 
+            <div class="col-md-4 align-right">
+                <span data-toggle="tooltip" data-placement="bottom" title="Edit this task" class="glyphicon glyphicon-pencil btn btn-info" (click)="editTask(task._id)"></span> 
+                <span data-toggle="tooltip" data-placement="bottom" title="Delete this task" class="glyphicon glyphicon-trash btn btn-danger" (click)="deleteTask(task._id)"></span> 
+            </div>
+            <br><br>
+        </div>
+    </div>
+</div>
