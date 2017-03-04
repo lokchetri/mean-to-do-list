@@ -15,27 +15,35 @@ export class TasksComponent implements OnInit{
     _id: string;
     isDone: boolean;
     showUpdateBtn = false;
-
+    currentUser: any;
 
     ngOnInit() {    
 
     }
     constructor(private taskService:TaskService, 
     private userService:UserService){
-        // Get All Tasks
-        this.taskService.getTasks()
+        //Logged In User
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        // Get All Tasks Saved By Logged In User
+        this.getTasksByUserId(this.currentUser._id);
+    }
+
+    getTasksByUserId(userId){
+        this.taskService.getTasksByUserId(userId)
             .subscribe(tasks => {
                 this.tasks = tasks;
             });
     }
-    
+
+    // Save Task
     addTask(event){
         event.preventDefault();
         var newTask = {
+            userId: this.currentUser._id,
             title: this.title,
             isDone: false
         }
-        
+        console.log('New Task', newTask);
         this.taskService.addTask(newTask)
             .subscribe(task => {
                 this.tasks.push(task);
@@ -43,6 +51,7 @@ export class TasksComponent implements OnInit{
             });
     }
 
+    // Edit Task
     editTask(id){
         var tasks = this.tasks;
         // Find out the edited task from tasks array
@@ -57,7 +66,8 @@ export class TasksComponent implements OnInit{
         }
         this.showUpdateBtn = true;
     }
-    
+
+    // Update Task
     updateTask(){
         var id = this._id;
         console.log('Update Task Id -',id);
@@ -65,7 +75,8 @@ export class TasksComponent implements OnInit{
         var _task = {
             _id:this._id,
             title: this.title,
-            isDone: this.isDone
+            isDone: this.isDone,
+            userId: this.currentUser._id
         };
         
         console.log('Updated Task -',_task);
@@ -86,6 +97,7 @@ export class TasksComponent implements OnInit{
         });
     }
 
+    // Delete Task
     deleteTask(id){
         var tasks = this.tasks;
         
@@ -100,11 +112,13 @@ export class TasksComponent implements OnInit{
         });
     }
     
+    // Update Status
     updateStatus(task){
         var _task = {
             _id:task._id,
             title: task.title,
-            isDone: !task.isDone
+            isDone: !task.isDone,
+            userId: this.currentUser._id
         };
         
         this.taskService.updateStatus(_task).subscribe(data => {

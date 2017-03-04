@@ -17,6 +17,11 @@ export class TaskService{
         return this.http.get('/api/task/'+id)
             .map(res => res.json());
     }
+
+    getTasksByUserId(userId){
+        return this.http.get('/api/tasks/'+userId)
+            .map(res => res.json());
+    }
     
     addTask(newTask){
         var headers = new Headers();

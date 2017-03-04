@@ -12,31 +12,40 @@ var core_1 = require('@angular/core');
 var index_1 = require('../../services/index');
 var TasksComponent = (function () {
     function TasksComponent(taskService, userService) {
-        var _this = this;
         this.taskService = taskService;
         this.userService = userService;
         this.showUpdateBtn = false;
-        // Get All Tasks
-        this.taskService.getTasks()
-            .subscribe(function (tasks) {
-            _this.tasks = tasks;
-        });
+        //Logged In User
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        // Get All Tasks Saved By Logged In User
+        this.getTasksByUserId(this.currentUser._id);
     }
     TasksComponent.prototype.ngOnInit = function () {
     };
+    TasksComponent.prototype.getTasksByUserId = function (userId) {
+        var _this = this;
+        this.taskService.getTasksByUserId(userId)
+            .subscribe(function (tasks) {
+            _this.tasks = tasks;
+        });
+    };
+    // Save Task
     TasksComponent.prototype.addTask = function (event) {
         var _this = this;
         event.preventDefault();
         var newTask = {
+            userId: this.currentUser._id,
             title: this.title,
             isDone: false
         };
+        console.log('New Task', newTask);
         this.taskService.addTask(newTask)
             .subscribe(function (task) {
             _this.tasks.push(task);
             _this.title = '';
         });
     };
+    // Edit Task
     TasksComponent.prototype.editTask = function (id) {
         var tasks = this.tasks;
         // Find out the edited task from tasks array
@@ -51,6 +60,7 @@ var TasksComponent = (function () {
         }
         this.showUpdateBtn = true;
     };
+    // Update Task
     TasksComponent.prototype.updateTask = function () {
         var _this = this;
         var id = this._id;
@@ -58,7 +68,8 @@ var TasksComponent = (function () {
         var _task = {
             _id: this._id,
             title: this.title,
-            isDone: this.isDone
+            isDone: this.isDone,
+            userId: this.currentUser._id
         };
         console.log('Updated Task -', _task);
         this.taskService.updateStatus(_task).subscribe(function (data) {
@@ -76,6 +87,7 @@ var TasksComponent = (function () {
             }
         });
     };
+    // Delete Task
     TasksComponent.prototype.deleteTask = function (id) {
         var tasks = this.tasks;
         this.taskService.deleteTask(id).subscribe(function (data) {
@@ -88,11 +100,13 @@ var TasksComponent = (function () {
             }
         });
     };
+    // Update Status
     TasksComponent.prototype.updateStatus = function (task) {
         var _task = {
             _id: task._id,
             title: task.title,
-            isDone: !task.isDone
+            isDone: !task.isDone,
+            userId: this.currentUser._id
         };
         this.taskService.updateStatus(_task).subscribe(function (data) {
             task.isDone = !task.isDone;

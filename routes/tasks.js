@@ -23,6 +23,16 @@ router.get('/task/:id', function(req, res, next){
     });
 });
 
+// Get Tasks By UserId
+router.get('/tasks/:userId', function(req, res, next){
+    db.tasks.find({userId: req.params.userId}, function(err, tasks){
+        if(err){
+            res.send(err);
+        }
+        res.json(tasks);
+    });
+});
+
 //Save Task
 router.post('/task', function(req, res, next){
     var task = req.body;
@@ -62,6 +72,10 @@ router.put('/task/:id', function(req, res, next){
     
     if(task.title){
         updTask.title = task.title;
+    }
+
+    if(task.userId){
+        updTask.userId = task.userId;
     }
     
     if(!updTask){

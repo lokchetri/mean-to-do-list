@@ -24,6 +24,10 @@ var TaskService = (function () {
         return this.http.get('/api/task/' + id)
             .map(function (res) { return res.json(); });
     };
+    TaskService.prototype.getTasksByUserId = function (userId) {
+        return this.http.get('/api/tasks/' + userId)
+            .map(function (res) { return res.json(); });
+    };
     TaskService.prototype.addTask = function (newTask) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
