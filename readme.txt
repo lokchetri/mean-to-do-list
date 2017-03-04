@@ -1,4 +1,4 @@
-Author: Lok
+Author: Lok Chetri
 ----------------------------------
 Mongo DB Details :
 ----------------------------------
@@ -6,7 +6,7 @@ Database Name : mytasklist
 
 Collections : 
 
-1. tasks (title, isdone)
+1. tasks (title, isdone, userId)
 2. users (firstname, lastname, username, password) 
 
 ----------------------------------
