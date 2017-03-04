@@ -3,12 +3,16 @@ Author: Lok Chetri
 Mongo DB Details :
 ----------------------------------
 Database Name : mytasklist
-
 Collections : 
 
 1. tasks (title, isdone, userId)
 2. users (firstname, lastname, username, password) 
 
+Running the App:
+----------------------------------
+1. Start node server - navigate to root folder and run : node server
+2. Start angular app - navigate to client folder and run : npm start
+3. Browse localhost:3000
 ----------------------------------
 MEAN VERSION:
 ----------------------------------
