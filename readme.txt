@@ -6,7 +6,7 @@ Database Name : mytasklist
 Collections : 
 
 1. tasks (title, isdone, userId)
-2. users (firstname, lastname, username, password) 
+2. users (firstName, lastName, userName, password) 
 
 Running the App:
 ----------------------------------
