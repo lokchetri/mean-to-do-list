@@ -44,15 +44,6 @@ var UserService = (function () {
         return this.http.delete('/user/user/' + id)
             .map(function (res) { return res.json(); });
     };
-    UserService.prototype.authenticateUser = function () {
-        if (!localStorage.hasOwnProperty('currentUser') || (localStorage.getItem('currentUser')) == 'undefined') {
-            console.log("authenticateUser - localStorage currentUser -", localStorage.getItem('currentUser'));
-            return false;
-        }
-        else {
-            console.log("localStorage currentUser -", localStorage.getItem('currentUser'));
-        }
-    };
     // private helper methods
     UserService.prototype.jwt = function () {
         // create authorization header with jwt token

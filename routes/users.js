@@ -24,20 +24,9 @@ router.get('/user/:id', function(req, res, next){
 });
 
 // Get Single User By Username
-router.get('/user/name/:username', function(req, res, next){
-    console.log("Get User By Username : ", req.params.username);
-    db.users.findOne({username: req.params.username}, function(err, user){
-        if(err){
-            res.send(err);
-        }
-        res.json(user);
-    });
-});
-
-// Get Single User By Username
-router.post('/user/authenticate', function(req, res, next){
-    console.log("Get User By Username : ", req.params.username);
-    db.users.findOne({username: req.params.username, password: req.params.password}, function(err, user){
+router.get('/user/name/:userName', function(req, res, next){
+    console.log("Get User By UserName : ", req.params.userName);
+    db.users.findOne({userName: req.params.userName}, function(err, user){
         if(err){
             res.send(err);
         }
@@ -48,7 +37,7 @@ router.post('/user/authenticate', function(req, res, next){
 //Save User
 router.post('/user', function(req, res, next){
     var user = req.body;
-    if(!user.firstname || (!user.lastname) || (!user.username) || (!user.password)){
+    if(!user.firstName || (!user.lastName) || (!user.userName) || (!user.password)){
         res.status(400);
         res.json({
             "error": "Bad Data"
@@ -78,19 +67,19 @@ router.put('/user/:id', function(req, res, next){
     var user = req.body;
     var updUser = {};
     
-    if(user.firstname){
-        updUser.firstname = user.firstname;
+    if(user.firstName){
+        updUser.firstName = user.firstName;
     }
-    if(user.lastname){
-        updUser.lastname = user.lastname;
+    if(user.lastName){
+        updUser.lastName = user.lastName;
     }
-    if(user.username){
-        updUser.username = user.username;
+    if(user.userName){
+        updUser.userName = user.userName;
     }
     if(task.password){
         updUser.password = user.password;
     }
-    
+    // if there is nothing to update
     if(!updUser){
         res.status(400);
         res.json({

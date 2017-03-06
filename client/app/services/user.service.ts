@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { User } from '../models/user';
+import { User } from '../models/User';
  
 @Injectable()
 export class UserService {
@@ -41,15 +41,6 @@ export class UserService {
             .map(res => res.json());
     }
     
-    authenticateUser(){
-        if(!localStorage.hasOwnProperty('currentUser') || (localStorage.getItem('currentUser'))=='undefined'){
-             console.log("authenticateUser - localStorage currentUser -", localStorage.getItem('currentUser'));
-            return false;
-        }else{
-            console.log("localStorage currentUser -", localStorage.getItem('currentUser'));
-        }
-    }
-
     // private helper methods
  
     private jwt() {
