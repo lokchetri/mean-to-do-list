@@ -5,7 +5,7 @@ Mongo DB Details :
 Database Name : mytasklist
 Collections : 
 
-1. tasks (title, isdone, userId)
+1. tasks (title, isDone, userId)
 2. users (firstName, lastName, userName, password) 
 
 Running the App:
